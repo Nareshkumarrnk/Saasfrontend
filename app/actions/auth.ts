@@ -147,7 +147,24 @@ export async function forgotPassword(prevState: any, formData: FormData) {
 }
 
 export async function socialSignIn(provider: "google" | "github") {
-  // This would typically redirect to OAuth provider
-  // For demo purposes, we'll just redirect to the main site
-  redirect(VERCEL_DOMAIN)
+  if (provider === "google") {
+    const googleAuthUrl =
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${process.env.GOOGLE_CLIENT_ID}&` +
+      `redirect_uri=${encodeURIComponent(`${process.env.VERCEL_URL}/api/auth/callback/google`)}&` +
+      `response_type=code&` +
+      `scope=openid email profile&` +
+      `state=google`
+
+    redirect(googleAuthUrl)
+  } else if (provider === "github") {
+    const githubAuthUrl =
+      `https://github.com/login/oauth/authorize?` +
+      `client_id=${process.env.GITHUB_CLIENT_ID}&` +
+      `redirect_uri=${encodeURIComponent(`${process.env.VERCEL_URL}/api/auth/callback/github`)}&` +
+      `scope=user:email&` +
+      `state=github`
+
+    redirect(githubAuthUrl)
+  }
 }
