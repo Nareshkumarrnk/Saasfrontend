@@ -7,7 +7,7 @@ import { connectToDatabase } from "@/lib/mongodb"
 import { sendWelcomeEmail } from "@/lib/email"
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
-const VERCEL_DOMAIN = process.env.NEXT_URL || "https://your-domain.vercel.app"
+const VERCEL_DOMAIN = process.env.VERCEL_URL || "https://your-domain.vercel.app"
 
 export async function signIn(prevState: any, formData: FormData) {
   try {
